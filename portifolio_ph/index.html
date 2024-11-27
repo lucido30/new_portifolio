@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio de Pedro Humberto</title>
+    <link rel="stylesheet" href="src/contato.css">
+    <link rel="shortcut icon" href="src/assets/favicon-32x32.png" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <div class="photo-container">
+            <img src="src/assets/foto_curriculo.jpg" alt="Foto de Pedro Humberto" class="profile-photo">
+        </div>
+        <h1>Pedro Humberto</h1>
+        <p>Desenvolvedor Web | HTML, CSS, JavaScript e Python com foco em Django!</p>
+    </header>
+
+    <nav>
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="src/portifolio.html">Projetos</a></li>
+            <li><a href="src/contato.html">Contato</a></li>
+            <li><a href="#cotacoes">Cotações</a></li>
+        </ul>
+    </nav>
+
+    <section id="sobre">
+        <h2>Sobre Mim</h2>
+        <p>Olá, sou Pedro Humberto, desenvolvedor web com foco em HTML, CSS, JavaScript, Python e Django. Estudo Desenvolvimento Web na UniNASAL e tenho experiência na criação de aplicações voltadas para saúde e fitness. Também gerencio minha loja, Body Prime Suplementos, em Natal-RN, onde prezo pela transparência e qualidade. <br><br> Apaixonado por tecnologia desde cedo, desenvolvi projetos como sistemas de controle de estoque e páginas de e-commerce, sempre buscando soluções práticas e inovadoras. Valorizo o trabalho em equipe e a constante busca por aprendizado.</p>
+    </section>
+
+    <section id="cotacoes">
+        <h2>Cotações de Moedas</h2>
+        <div class="currency-container">
+            <div class="currency-box">
+                <h3>Dólar (USD)</h3>
+                <p id="usd">Carregando...</p>
+            </div>
+            <div class="currency-box">
+                <h3>Euro (EUR)</h3>
+                <p id="eur">Carregando...</p>
+            </div>
+        </div>
+        <p id="update-time">Atualizado em: Carregando...</p>
+    </section>
+
+    <section id="contato">
+        <h2>Contato</h2>
+        <p>Entre em contato pelo email: pedrohumbertody@gmail.com</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Pedro Humberto. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        async function fetchCurrencyRates() {
+            try {
+                const response = await fetch('https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL');
+                const data = await response.json();
+                document.getElementById('usd').innerText = `R$ ${parseFloat(data.USDBRL.high).toFixed(2)}`;
+                document.getElementById('eur').innerText = `R$ ${parseFloat(data.EURBRL.high).toFixed(2)}`;
+                const updateTime = new Date().toLocaleString();
+                document.getElementById('update-time').innerText = `Atualizado em: ${updateTime}`;
+            } catch (error) {
+                document.getElementById('usd').innerText = 'Erro ao carregar';
+                document.getElementById('eur').innerText = 'Erro ao carregar';
+                document.getElementById('update-time').innerText = 'Erro ao atualizar';
+            }
+        }
+        fetchCurrencyRates();
+
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
